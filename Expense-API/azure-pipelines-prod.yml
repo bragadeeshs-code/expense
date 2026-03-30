@@ -1,0 +1,48 @@
+trigger:
+  branches:
+    include:
+      - production
+
+stages:
+  - stage: Deploy
+    displayName: Deploy Expense API to Production
+
+    jobs:
+      - deployment: DeployApp
+        displayName: Docker Compose Production Deployment
+
+        environment:
+          name: Production
+          resourceName: z-transact-api
+          resourceType: virtualMachine
+
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+
+                - script: |
+                    set -e
+                    echo "Syncing project files to production server..."
+                    sudo rsync -av --delete ./ /home/ubuntu/z-transact/Expense-API --exclude='.env'
+                  displayName: "Sync Files to Production"
+
+                - script: |
+                    set -e
+                    cd /home/ubuntu/z-transact/Expense-API
+
+                    echo "Building Docker images..."
+                    sudo docker compose -f compose.yml -f compose.prod.yml build
+
+                    echo "Running database migrations..."
+                    sudo docker compose -f compose.yml -f compose.prod.yml run --rm api alembic upgrade head
+
+                    echo "Running seeders..."
+                    sudo docker compose -f compose.yml -f compose.prod.yml run --rm api python -m app.seeders.seed
+
+                    echo "Starting production containers..."
+                    sudo docker compose -f compose.yml -f compose.prod.yml up -d
+
+                    echo "Production deployment completed successfully."
+                  displayName: "Build, Migrate, Seed and Start Containers"

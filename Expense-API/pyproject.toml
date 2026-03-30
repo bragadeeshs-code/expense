@@ -1,0 +1,12 @@
+[tool.ruff.lint]
+select = [
+    "D",   # pydocstyle (docstring style checking)
+    "F",   # Pyflakes (syntax errors, undefined names, etc.)
+    "I",   # isort (import sorting)
+    "T20", # print statements,
+    "E",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"alembic/env.py" = ["D100"]
+"alembic/versions/*" = ["ALL"]

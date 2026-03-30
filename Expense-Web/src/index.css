@@ -1,0 +1,343 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "tailwind-scrollbar";
+
+@custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: Inter, system-ui, sans-serif;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.53 0.27 304.45);
+  --primary-foreground: oklch(0.969 0.016 293.756);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --gradient-primary: linear-gradient(90deg, #962fd2 0%, #564dce 100%);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-inter: "Inter", sans-serif;
+  --color-lavender-veil: #fcfafe;
+  --color-light-gray-blue: #e5e9eb;
+  --color-white-smoke: #fdfdfd;
+  --color-gray-suit: #babbbf;
+  --color-cool-white: #fcfdfd;
+  --color-cool-gray: #8f9299;
+  --color-navy-deep: #0e131d;
+  --color-black: #35383f;
+  --shadow-header: 0px 3px 6.3px 0px #0000000a;
+  --shadow-dropdown: 0px 4px 8.9px 0px #0000001f;
+  --color-rich-black: #0a0a0a;
+  --color-steel-gray: #757575;
+  --color-lavender-mist: #f1edfe;
+  --color-lilac-whisper: #fbf2ff;
+  --color-slate-charcoal: #53565f;
+  --color-ash-gray: #71747c;
+  --color-bloom-lilac: #f9effd;
+  --color-orchid-frost: #ebddf0;
+  --color-petal-bloom: #f5e8fb;
+  --shadow-card-soft: 0px 0px 8.1px 0px #2020200d;
+  --shadow-item-card: 0px 2px 6.8px 0px #0000001a;
+  --color-porcelain: #eff0f2;
+  --color-sky-mist: #ccd9f4;
+  --color-cloud-white: #fbfdff;
+  --color-azure-blue: #56acff;
+  --color-frost-white: #eef7ff;
+  --color-electric-indigo: #584afb;
+  --color-fog-gray: #cacccf;
+  --color-orchid-tint: #eccaff66;
+  --color-orchid-mist: #fbf4ff;
+  --color-vivid-violet: #962fd2;
+  --color-midnight-navy: #020913;
+  --color-mint-frost: #d7fddf;
+  --color-ice-white: #f9faff;
+  --color-periwinkle-mist: #eff2ff;
+  --color-silver-gray: #cacaca;
+  --color-slate-whisper: #adb0b6;
+  --color-coral-red: #ea5057;
+  --color-indigo-violet: #564dce;
+  --color-lavender-gray: #c7cbd266;
+  --color-cloud-silver: #e6e7e9;
+  --color-snow-gray: #f9f9f9;
+  --color-light-lavender-purple: #e4c5f7;
+  --color-dark-charcoal: #212121;
+  --color-dusky-gray: #949494;
+  --color-athens-gray: #f5f6f7;
+  --color-soft-mist: #f7f7f733;
+  --color-soft-purple: #d1a1f0;
+  --color-spring-green: #61d06a;
+  --color-violet-haze: #faf5fd;
+  --color-pastel-iris: #fcf8ff;
+  --color-ash-white: #eeeeee;
+  --color-linen-gray: #f8f8f8;
+  --color-ash-gray-light: #e8e8e8;
+  --color-ember-black: #09090b;
+  --color-frosted-white-gray: #f2f2f2;
+  --shadow-ultra-subtle-shadow: 0px 4px 8px 0px #0000000a;
+  --color-arctic-mist: #f8fdff;
+  --color-light-golden-yellow: #fef8b4;
+  --color-dark-mustard-yellow: #796f00;
+  --shadow-gray-soft: 0px 8px 14.5px 0px #20202033;
+  --color-forest-fern: #367711;
+  --color-soft-rose-mist: #ffe4e5;
+  --color-tomato-red: #ee2f1d;
+  --color-amber-spice: #ec8e54;
+  --shadow-soft-ambient: 0px 4px 7.1px 0px #0000001a;
+  --color-eerie-black: #0a0b0f;
+  --color-gray-goose: #fbfbfb;
+  --shadow-subtle: 0px 4px 8.6px 0px #0000001a;
+  --color-graphite-gray: #6a6a6a;
+  --color-icy-blue: #eef7ff1f;
+  --color-electric-indigo: #7d72fc;
+  --color-iced-lavender: #fdf0ff66;
+  --color-pale-purple: #f8d1ff;
+  --color-cloud-gray: #f5f6f733;
+  --shadow-ambient: -1.14px 2.29px 9.16px 0px #0000000f;
+  --color-cool-gray-frost: #f5f6f799;
+  --color-frost-bound: #eff0f299;
+  --color-lavender-haze: #f5e8fb1f;
+  --shadow-cool-mist: 0px 4px 5.4px 0px #e6e7e966;
+  --color-peach-cream: #fff1e6;
+  --color-warm-amber: #ec8e54;
+  --color-light-amethyst: #d1a1f01f;
+  --color-soft-mint: #b9e4bc;
+  --color-emerald-green: #61d06a1f;
+  --color-soft-coral: #f1aba5;
+  --color-crimson-red: #ea50571f;
+  --color-mint-green: #99efab;
+  --color-golden-yellow: #eade4e;
+  --color-porcelain-gray: #f0f0f0;
+  --color-herbal-cream: #f0ffe2;
+  --color-soft-coral-cream: #ffe6e2;
+  --color-powdered-orchid: #f8e2ff;
+  --color-frosted-lavender: #f5e8fb66;
+  --color-purple-lavender-mist: #f9f1fc4d;
+  --color-pistachio-cream: #bbffc8;
+  --color-herbal-snow: #effff2;
+  --color-powder-blue-haze: #cbf2ff3d;
+  --color-baby-blue: #aaeaff;
+  --color-amethyst-pastel: #e3b3ff;
+  --color-lilac-smoke: #f9f1fc40;
+  --color-lemon-chiffon: #f6e59e;
+  --color-pale-marigold: #f4e7b21a;
+  --color-cotton-candy-haze: #ffe4e533;
+  --color-muted-salmon: #f4d2ce;
+  --color-moonlit-lavender: #fbf8ff33;
+  --color-slate-gray: #9ca3af;
+  --color-royal-blue: #2563eb;
+  --color-kelly-green: #16a34a;
+  --color-cherry-red: #dc2626;
+  --color-honey: #f59e0b;
+  --color-cloud-veil: #f5f6f7b2;
+  --color-pale-platinum: #e6e7e999;
+  --color-pale-aqua: #daf9ff;
+  --color-deep-indigo-gray: #2b2e44;
+  --color-chestnut-brown: #964b00;
+  --color-light-pink: #f6e6ff;
+  --color-deep-charcoal: #1a1c1e;
+  --color-dim-gray: #44474e;
+  --color-slate-cool: #74777f;
+  --color-pale-sky: #e3f9ff;
+  --color-misty-azure: #f7fbfd;
+  --color-mint-whisper: #e6f4f1;
+  --color-soft-gray-bg: #f9fafb;
+  --color-frost-azure: #ebf2fa;
+  --color-periwinkle-light: #8c8efa;
+  --color-soft-gray-surface: #f6f7f9;
+  --color-soft-periwinkle: #dde1ff;
+  --color-periwinkle-blue: #8587fc;
+  --color-periwinkle-card: #eaf2ff;
+  --color-mist-gray: #c4c6d0;
+  --color-sky-tint: #d9f2f9;
+  --color-azure-whisper: #f7fdff;
+  --color-periwinkle-light-bg: #f5f3ff;
+  --color-lilac-frost: #ebd5ff;
+  --color-misty-snow: #f8f9fb;
+  --color-platinum-edge: #e1e2e4;
+  --animate-slide-up: slide-up 0.5s ease-out forwards;
+  @keyframes slide-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    ,
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+.add-expense-dropdown-item {
+  @apply cursor-pointer gap-1.5 text-xs font-medium text-black;
+}
+
+@layer base {
+  body {
+    @apply font-inter h-full antialiased;
+  }
+  html {
+    @apply h-screen w-screen overflow-hidden;
+  }
+  #root {
+    @apply h-full;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.data-table-check-box {
+  @apply cursor-pointer shadow-none;
+}
+
+.app-tab-item {
+  @apply data-[state=active]:bg-primary cursor-pointer text-black data-[state=active]:text-white;
+}
+
+#mmiPickerBot,
+.cst-attrib-cont,
+.mmiDRo {
+  display: none !important;
+}
+
+#mmiPickerTop span {
+  font-size: 14px !important;
+  padding-left: 22px;
+}
+
+.btn-gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.btn-gradient-border {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(white, white) padding-box,
+    var(--gradient-primary) border-box;
+}
+
+.table-column-resize-handle {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 8px;
+  cursor: col-resize;
+}
+
+.table-column-resize-handle::after {
+  content: "";
+  width: 1px;
+  height: 100%;
+  display: block;
+  background: gainsboro;
+}

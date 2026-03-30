@@ -1,0 +1,16 @@
+.github
+.husky
+.vscode
+dist
+node_modules
+.dockerignore
+.env.example
+.gitattributes
+.gitignore
+.lintstagedrc.json
+.nvmrc
+.prettierrc
+compose.yml
+Dockerfile
+eslint.config.js
+README.md

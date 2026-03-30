@@ -1,0 +1,31 @@
+trigger:
+  branches:
+    include:
+      - production
+
+stages:
+  - stage: Deploy
+    displayName: Deploy to Production VM
+    jobs:
+      - deployment: DeployExpenseWeb
+        displayName: Deploying the Expense Web
+        environment:
+          name: Production
+          resourceName: z-transact-api
+          resourceType: virtualMachine
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+
+                - script: |
+                    rsync -av --delete ./ /home/ubuntu/z-transact/Expense-Web --exclude='.env'
+                  displayName: "Copying the files to destination"
+
+                - script: |
+                    echo "Building and starting containers..."
+                    cd /home/ubuntu/z-transact/Expense-Web
+                    sudo docker compose up -d --build
+                    echo "Containers started successfully"
+                  displayName: "Build and Start Containers"

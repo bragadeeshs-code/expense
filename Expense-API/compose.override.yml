@@ -1,0 +1,68 @@
+services:
+  api:
+    depends_on:
+      postgres:
+          condition: service_healthy
+      minio:
+          condition: service_started
+      kafka:
+          condition: service_started
+      redis:
+          condition: service_started
+      rabbitmq:
+          condition: service_started
+    volumes:
+      - ./app:/code/app
+
+  minio:
+    ports:
+      - "${MINIO_CONSOLE_PORT:-9101}:9001"
+
+  redis:
+    ports:
+      - ${REDIS_PORT:-6379}:6379
+
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    container_name: expense-rabbitmq
+    ports:
+      - "${DOCKER_RABBITMQ_PORT:-5673}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT:-15673}:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-user}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-password}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - expense-api-net
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: expense-pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@local.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - expense-api-net
+
+  kafka-ui:
+    container_name: expense-kafka-ui
+    image: provectuslabs/kafka-ui:v0.7.2
+    ports:
+      - 8081:8080
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS= kafka:9093
+    depends_on:
+      - kafka
+    networks:
+      - expense-api-net
+
+volumes:
+  rabbitmq_data:
+  pgadmin_data:

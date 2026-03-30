@@ -1,0 +1,23 @@
+services:
+  api:
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+      kafka:
+        condition: service_started
+      redis:
+        condition: service_started
+
+  postgres:
+    restart: unless-stopped
+
+  minio:
+    restart: unless-stopped
+
+  kafka:
+    restart: unless-stopped
+
+  redis:
+    restart: unless-stopped
