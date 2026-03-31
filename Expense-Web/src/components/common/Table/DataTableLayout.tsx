@@ -29,6 +29,7 @@ interface DataTableLayoutProps<TData, TFilters> {
   isSearchFieldExpandable?: boolean;
   tableProps: React.ComponentProps<typeof DataTable<TData>>;
   onAddNew?: () => void;
+  customAddNewButton?: React.ReactNode;
   fileUploadProps?: FileUploadDialogProps;
 }
 
@@ -46,6 +47,7 @@ const DataTableLayout = <TData, TFilters>({
   onResetFilters,
   tableProps,
   onAddNew,
+  customAddNewButton,
   fileUploadProps,
   isSearchFieldExpandable = false,
 }: DataTableLayoutProps<TData, TFilters>) => {
@@ -91,6 +93,7 @@ const DataTableLayout = <TData, TFilters>({
               />
             )}
             {fileUploadProps && <FileUploadDialog {...fileUploadProps} />}
+            {customAddNewButton}
             {onAddNew && (
               <GradientOutlineButton
                 onClick={() => onAddNew()}
